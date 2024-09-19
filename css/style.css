@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000;
+    font-family: sans-serif;
+}
+
+.container {
+    display:grid;
+    width: 98%;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    /*justify-content: space-around;*/
+    width: 100%;
+    color:#fff;
+    padding: 15px;
+}
+
+.logo {
+    font-size: 22px;
+    
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin-left: 100px;
+}
+
+li {
+    padding: 5px 15px;
+}
+
+li a {
+    color:#fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+
+main {
+    width: 98%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    gap: 10px;
+
+}
+
+.newsreel {
+    background-color: #fff;
+    width: 55%;
+    border-radius: 10px;
+    min-height: 500px;
+    padding: 20px;
+}
+
+.newsreel h1 {
+    font-size: 60px;
+}
+
+.image-gallery {
+    width: 45%;
+    background-image: url("./img/sebastian-unrau-sp-p7uuT0tw-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 400px;
+    border-radius: 10px;
+    padding: 15px;
+    color: #fff;
+
+}
+
+article {
+    display: flex;
+    width: 98%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+    gap: 10px;
+}
+
+.news {
+    background-color: #33827c;
+    width: 55%;
+    border-radius: 10px;
+    min-height: 150px;
+    padding: 15px;
+}
+
+
+.socials {
+    width: 45%;
+    background-color: rgb(217, 222, 77);
+    min-height: 150px;
+    border-radius: 10px;
+    padding: 15px;
+}
+footer {
+    width: 100%;
+    
+    
+}
+
+footer p {
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    padding: 10px;
+}
