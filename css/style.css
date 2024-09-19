@@ -6,7 +6,8 @@
 
 body {
     background-color: #000;
-    font-family: sans-serif;
+    font-family: "Bebas Neue", sans-serif;
+    letter-spacing: 1px;
 }
 
 .container {
@@ -17,14 +18,17 @@ body {
 
 header {
     display: flex;
-    /*justify-content: space-around;*/
     width: 100%;
     color:#fff;
     padding: 15px;
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 20px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 2px;
     
 }
 
@@ -42,10 +46,21 @@ li {
 li a {
     color:#fff;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 18px;
 }
 
+li a:hover {
+    color: purple;
+}
 
+.news-btn {
+    background-color: #000;
+    color: #fff;    
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+
+}
 
 main {
     width: 98%;
@@ -66,7 +81,12 @@ main {
 }
 
 .newsreel h1 {
-    font-size: 60px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+    line-height: 0.9;
+    padding-top: 15px;
 }
 
 .image-gallery {
@@ -106,6 +126,7 @@ article {
     min-height: 150px;
     border-radius: 10px;
     padding: 15px;
+    color: #fff;
 }
 footer {
     width: 100%;
