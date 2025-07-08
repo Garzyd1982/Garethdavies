@@ -3,42 +3,1034 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <title>Gareth Davies</title>
+    <title>Gareth Davies - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Bebas Neue (new main site font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Roboto (kept for fallback or specific elements if needed) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter (kept for fallback or specific elements if needed) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Impact (for GD logo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Impact&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Orbitron (new font for the site) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Bungee Shade (for animation text) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Chewy (for card 2 animation text) -->
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            background-color: #1a1a1a; /* Dark background for the body */
+            color: #e0e0e0; /* Light text for overall page */
+            line-height: 1.6;
+            min-height: 100vh; /* Ensure body takes full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* No padding on body */
+            margin: 0; /* No default margin */
+        }
+
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px; /* Adjust width as needed */
+            height: 8px; /* For horizontal scrollbars */
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #333; /* Darker track */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #666; /* Lighter gray thumb */
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #888;
+        }
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+        ::-webkit-scrollbar-corner {
+            display: none;
+        }
+        * {
+            scrollbar-color: #666 #333; /* thumb track for Firefox */
+            scrollbar-width: thin;
+        }
+
+        /* Main Grid Container */
+        .grid-container {
+            display: grid;
+            /* 4 equal columns */
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 equal rows */
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2px; /* 2px gap between grid items (cards) */
+            width: calc(100vw - 80px); /* Fill viewport width minus left/right padding (40px each side) */
+            height: calc(100vh - 60px); /* Fill viewport height minus top/bottom padding (30px each side) */
+            padding: 30px 40px; /* New padding: 30px top/bottom, 40px left/right */
+            box-sizing: border-box; /* Include padding in width/height calculation */
+            overflow: hidden; /* Keep overflow hidden for desktop to maintain grid integrity */
+        }
+
+        /* Base Card Styling */
+        .card {
+            background-color: #ffffff; /* White background for cards */
+            border-radius: 0.75rem; /* All corners now rounded for every card */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            padding: 1rem; /* Default padding for cards */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333; /* Dark text for card content */
+            transition: transform 0.2s ease-in-out; /* Keep hover effect for general cards */
+            overflow: hidden; /* Hide overflow for content */
+            border: 1px solid #e0e0e0; /* Subtle border for definition */
+            position: relative; /* Needed for positioning card numbers */
+        }
+
+        /* Card Number Styling */
+        .card-number {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        /* General card hover effect (applies to cards without specific hover overrides) */
+        .card:hover {
+            transform: scale(1.005); /* Slight scale on hover */
+            z-index: 1; /* Bring hovered card to front */
+        }
+
+        /* Specific Card Layouts (based on image analysis) */
+
+        /* Card 1: Contact Card */
+        .card-contact {
+            grid-column: 1 / span 2; /* Spans 1st and 2nd columns */
+            grid-row: 1 / span 3; /* Spans rows 1, 2, and 3 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* Distribute space */
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-contact .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .card-contact .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+            border: 3px solid #FFA500; /* Orange border */
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); /* Orange glow */
+        }
+
+        .card-contact h2 {
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            font-size: 2rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-contact .title {
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-contact .location {
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        /* New styles for icon-only row at the bottom */
+        .icon-row {
+            display: flex;
+            justify-content: center; /* Center icons horizontally */
+            align-items: center;
+            gap: 1.5rem; /* Space between icons */
+            width: 100%;
+            padding-top: 1rem; /* Space from content above */
+            margin-top: auto; /* Push to the bottom */
+        }
+
+        .icon-row .icon-link {
+            display: flex; /* Ensure icon itself is centered if it has padding */
+            justify-content: center;
+            align-items: center;
+            text-decoration: none; /* Remove underline from links */
+            color: #444; /* Default icon color */
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .icon-row .icon-link:hover {
+            transform: scale(1.1); /* Slight scale on hover */
+        }
+
+        /* Styling for Font Awesome icons within the icon-row */
+        .icon-row .fa-solid,
+        .icon-row .fa-brands {
+            font-size: 1.8rem; /* Larger icons */
+            color: #007bff; /* Default blue for general icons */
+        }
+
+        /* Specific color overrides for social icons */
+        .icon-row .fa-linkedin { color: #0a66c2; } /* LinkedIn blue */
+        .icon-row .fa-github { color: #181717; } /* GitHub black */
+        .icon-row .fa-pinterest { color: #E60023; } /* Pinterest red */
+        .icon-row .fa-envelope { color: #D44638; } /* Gmail red */
+        .icon-row .fa-phone { color: #28a745; } /* Green phone */
+        .icon-row .fa-instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #d6249f; /* Fallback color */
+        }
+
+
+        /* Removed .contact-info-group, .social-links-group, and .divider styles */
+        .card-contact .contact-info-group,
+        .card-contact .social-links-group,
+        .card-contact .divider {
+            display: none; /* Hide these old elements */
+        }
+
+
+        /* Share button styling (remains the same) */
+        .share-button {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: #FFA500; /* Bright Orange */
+            color: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center icon when no text */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            width: 48px; /* Standard button size */
+            height: 48px; /* Standard button size */
+            padding: 0; /* Remove padding as size is fixed by width/height */
+        }
+        .share-button:hover {
+            background-color: #CC8400; /* Darker orange on hover */
+        }
+        .share-button svg {
+            width: 24px; /* Standard icon size */
+            height: 24px; /* Standard icon size */
+            stroke-width: 2;
+        }
+
+        /* Interactive Liquid Fill Card */
+        .card-interactive-button {
+            grid-column: 3;
+            grid-row: 1 / span 2;
+            position: relative;
+            overflow: hidden; /* This clips the liquid that extends beyond the card */
+            justify-content: flex-end;
+            padding: 0;
+            cursor: default;
+        }
+
+        .card-interactive-button .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            pointer-events: none;
+            background-color: transparent;
+        }
+
+        .card-interactive-button .card-content p {
+            font-family: 'Chewy', cursive; /* Applied Chewy font */
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #8A2BE2; /* Changed text color to purple */
+        }
+
+        .liquid-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: transparent;
+            transition: height 5.2s ease-out; /* Smooth fill animation - 30% slower (4s * 1.3 = 5.2s) */
+            z-index: 1;
+        }
+
+        .liquid-container.filled {
+            height: 100%;
+        }
+
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            left: -10%; /* Shift left by 10% to center 120% width */
+            width: 120%; /* Make liquid 20% wider */
+            height: 100%;
+            background-color: #FFA500; /* Changed to Orange liquid color */
+            border-radius: 0 0 0.75rem 0.75rem; /* Apply border-radius to bottom corners */
+            transform-origin: bottom center;
+            position: relative; /* Needed for pseudo-element positioning */
+        }
+
+        .liquid::before {
+            content: '';
+            position: absolute;
+            top: -5px; /* Position slightly above the liquid to create the top surface */
+            left: 0;
+            width: 100%; /* Covers the 120% width of parent .liquid */
+            height: 10px; /* Height of the wavy surface */
+            background-color: #FFA500; /* Same Orange color */
+            border-radius: 50% 50% 0 0 / 10% 10% 0 0; /* Wavy top shape */
+            transform-origin: bottom center; /* Pivot point for rotation */
+            animation: none; /* No animation initially */
+        }
+
+        .liquid-container.filled .liquid::before {
+            animation: liquid-swish 3s ease-in-out infinite alternate; /* Apply swish to the top surface */
+        }
+
+        .bubbles {
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Bubbles should be within the card's width */
+            width: 100%; /* Bubbles container width matches card */
+            height: 100%; /* Bubbles container height same as card */
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubbles span {
+            position: absolute;
+            bottom: 0; /* Ensure bubbles start at the very bottom of the liquid area */
+            background-color: rgba(255, 223, 186, 0.4); /* Lighter orange with transparency for bubbles */
+            border-radius: 50%;
+            opacity: 0;
+            animation: bubble-float var(--bubble-duration) ease-in-out forwards; /* Use variable for duration */
+            width: var(--bubble-size); /* Use CSS variable for size */
+            height: var(--bubble-size); /* Use CSS variable for size */
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.5); /* Subtle white glow/border */
+        }
+
+        /* Keyframes for animations */
+        @keyframes bubble-float {
+            0% {
+                transform: translate(0, 0) scale(0); /* Start at bottom, small */
+                opacity: 0;
+                left: var(--bubble-left);
+            }
+            10% { /* Become visible quickly */
+                opacity: 1;
+                transform: translate(0, -5%) scale(1); /* Appear at full size, slightly up */
+            }
+            90% { /* Stay visible and float high */
+                transform: translate(calc(var(--bubble-wobble) * 1px), -500%) scale(1); /* Float high (5x bubble height) with wobble */
+                opacity: 1;
+            }
+            100% { /* Vanish after reaching peak */
+                transform: translate(calc(var(--bubble-wobble) * -1px), -700%) scale(1.1); /* Float even higher, slightly bigger, vanish with wobble */
+                opacity: 0;
+            }
+        }
+
+        @keyframes liquid-swish {
+            0% { transform: rotateZ(0deg); }
+            25% { transform: rotateZ(0.5deg); } /* Subtle tilt */
+            75% { transform: rotateZ(-0.5deg); } /* Subtle tilt */
+            100% { transform: rotateZ(0deg); }
+        }
+
+
+        /* Online Status Card */
+        .card-online {
+            grid-column: 4;
+            grid-row: 1;
+            justify-content: flex-start;
+            align-items: flex-end;
+            text-align: right;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .card-online .top-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: auto;
+        }
+        .card-online p {
+            font-family: 'Orbitron', sans-serif; /* Apply Orbitron */
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .card-online .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #28a745;
+            border-radius: 50%;
+        }
+        .card-online svg {
+            width: 28px;
+            height: 28px;
+            margin-top: auto;
+            cursor: pointer;
+        }
+        /* Placeholder image for Card 3 */
+        .card-online .placeholder-img {
+            width: 40px; /* Small icon size */
+            height: 40px;
+            border-radius: 50%; /* Make it circular */
+            margin-bottom: 0.5rem;
+            object-fit: cover;
+        }
+
+
+        /* Love, Death & Robots Style Animation Card */
+        .card-ldar-animation {
+            grid-column: 4;
+            grid-row: 2;
+            padding: 0;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column; /* Allow content to stack */
+            justify-content: center;
+            align-items: center;
+        }
+        /* Placeholder image for Card 4 */
+        .card-ldar-animation .placeholder-img {
+            width: 80%; /* Adjust size */
+            height: auto;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Removed .ldar-canvas styles as canvas is removed */
+        /* .ldar-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 0.75rem;
+        } */
+
+
+        /* Fast Forward Card (shifted up) */
+        .card-fast-forward {
+            grid-column: 3;
+            grid-row: 3;
+            padding: 1rem;
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .card-fast-forward img {
+            width: 100px;
+            height: 50px;
+            object-fit: contain;
+            margin-top: 0.75rem;
+        }
+
+        /* Card 6: Map of Location */
+        .card-map-location {
+            grid-column: 4;
+            grid-row: 3 / span 2;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card-map-location iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0.75rem;
+        }
+
+        /* Card 7: Ad for Services with Animation */
+        .card-service-ad {
+            background-color: #ffffff; /* White background */
+            color: #333; /* Dark text */
+            border: 1px solid #e0e0e0; /* Subtle border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            text-align: center;
+            overflow: hidden; /* Hide text before animation */
+            position: relative; /* For absolute positioning of animated elements if needed */
+            transition: none; /* Remove previous transitions */
+        }
+
+        .card-service-ad:hover {
+            transform: none; /* Remove hover effect */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Keep shadow static */
+        }
+
+        /* Placeholder image for Card 7 */
+        .card-service-ad .placeholder-img {
+            width: 80%; /* Adjust size of illustration */
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            opacity: 0; /* Still animate in */
+            transform: scale(0.8);
+            animation: scaleInIllustration 1.5s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        .card-service-ad .animated-text {
+            font-family: 'Bebas Neue', sans-serif; /* Changed to Bebas Neue */
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333; /* Changed to dark gray */
+            opacity: 0; /* Start invisible */
+            transform: translateY(-20px); /* Start slightly above */
+            animation: slideInText 1.5s ease-out forwards; /* Animation properties */
+            animation-delay: 0.5s; /* Delay start slightly */
+        }
+
+        /* Removed specific SVG element animations as SVG is replaced by img placeholder */
+        /* .card-service-ad .illustration-container .laptop-screen { animation: screenGlow 2s ease-in-out infinite alternate; } */
+        /* .card-service-ad .illustration-container .idea-bulb { transform-origin: center bottom; animation: bulbFloat 2.5s ease-in-out infinite alternate; } */
+        /* .card-service-ad .illustration-container .sparkle { opacity: 0; animation: sparkleFade 1.5s ease-out forwards; animation-delay: 1s; } */
+
+
+        @keyframes slideInText {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleInIllustration {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Removed keyframes for SVG elements */
+        /* @keyframes screenGlow { 0% { fill: #e0e0e0; } 100% { fill: #a0d0ff; } } */
+        /* @keyframes bulbFloat { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } } */
+        /* @keyframes sparkleFade { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0; transform: scale(1); } } */
+
+
+        /* Removed continuous animations for CSS and JS cards */
+        .card-css-animation {
+        }
+        .card-js-animation {
+        }
+
+        /* Grid positioning for bottom row */
+        .card-portfolio-item.card-html-animation {
+            grid-column: 1;
+            grid-row: 4;
+        }
+        .card-portfolio-item.card-css-animation {
+            grid-column: 2;
+            grid-row: 4;
+        }
+        .card-portfolio-item.card-js-animation {
+            grid-column: 3;
+            grid-row: 4;
+        }
+
+        /* Placeholder images for portfolio items */
+        .card-portfolio-item .placeholder-img {
+            width: 100%;
+            height: 100px; /* Fixed height for consistency */
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (min-width: 1025px) { /* Apply for larger desktop screens */
+            .grid-container {
+                padding: 40px 60px; /* Increased padding for more margin around outer cards */
+                width: calc(100vw - 120px); /* Adjust width based on new padding (60px left + 60px right) */
+                height: calc(100vh - 80px); /* Adjust height based on new padding (40px top + 40px bottom) */
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+                height: calc(100vh - 40px);
+                width: calc(100vw - 20px);
+                overflow: hidden;
+            }
+            .card-contact { grid-column: 1 / span 2; grid-row: 1 / span 3; }
+            .card-interactive-button { grid-column: 3; grid-row: 1 / span 2; }
+            .card-online { grid-column: 4; grid-row: 1; }
+            .card-ldar-animation { grid-column: 4; grid-row: 2; }
+            .card-fast-forward { grid-column: 3; grid-row: 3; }
+            .card-map-location { grid-column: 4; grid-row: 3 / span 2; }
+            .card-service-ad { grid-column: 1; grid-row: 4; } /* Adjusted grid position */
+            .card-portfolio-item.card-css-animation { grid-column: 2; grid-row: 4; }
+            .card-portfolio-item.card-js-animation { grid-column: 3; grid-row: 4; }
+
+            .card-contact h2 { font-size: 1.8rem; }
+            .card-contact .title { font-size: 1rem; }
+            .card-contact .location { font-size: 0.8rem; }
+            .card-contact .profile-pic { width: 80px; height: 80px; }
+            .icon-row .fa-solid, .icon-row .fa-brands { font-size: 1.6rem; }
+            .icon-row { gap: 1.2rem; }
+            .card-service-ad .animated-text { font-size: 1.3rem; }
+            .card-service-ad .placeholder-img { width: 70%; }
+            .card-ldar-animation .placeholder-img { width: 70%; }
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(auto-fit, minmax(80px, auto));
+                height: auto;
+                min-height: calc(100vh - 40px);
+                overflow: visible;
+            }
+            .card-contact { grid-column: 1 / span 2; grid-row: 1 / span 2; padding: 1rem; }
+            .card-contact h2 { font-size: 1.5rem; }
+            .card-contact .title { font-size: 0.9rem; }
+            .card-contact .location { font-size: 0.75rem; }
+            .card-contact .profile-pic { width: 70px; height: 70px; }
+            .share-button {
+                bottom: 0.75rem;
+                right: 0.75rem;
+                width: 40px;
+                height: 40px;
+            }
+            .share-button svg {
+                width: 20px;
+                height: 20px;
+            }
+            .icon-row .fa-solid, .icon-row .fa-brands { font-size: 1.4rem; }
+            .icon-row { gap: 1rem; }
+
+            .card-interactive-button {
+                grid-column: 1;
+                grid-row: 3 / span 2;
+                padding: 0.75rem;
+                min-height: 25rem;
+            }
+            .card-online { grid-column: 2; grid-row: 3; padding: 0.75rem; }
+            .card-ldar-animation { grid-column: 2; grid-row: 4; }
+            .card-fast-forward { grid-column: 1; grid-row: 5; padding: 0.75rem; }
+            .card-map-location { grid-column: 2; grid-row: 5 / span 2; padding: 0; }
+
+            .card-service-ad { grid-column: 1; grid-row: 6; } /* Adjusted grid position for mobile */
+            .card-service-ad .placeholder-img { width: 60%; }
+            .card-ldar-animation .placeholder-img { width: 60%; }
+            .card-portfolio-item.card-css-animation { grid-column: 2; grid-row: 6; }
+            .card-portfolio-item.card-js-animation { grid-column: 1 / span 2; grid-row: 7; }
+
+            .card-service-ad .animated-text { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(auto-fit, minmax(60px, auto));
+                height: auto;
+                min-height: calc(100vh - 40px);
+                overflow: visible;
+            }
+            .card-contact, .card-interactive-button, .card-online, .card-ldar-animation, .card-fast-forward, .card-map-location, .card-service-ad, .card-portfolio-item.card-css-animation, .card-portfolio-item.card-js-animation {
+                grid-column: 1;
+                grid-row: auto;
+                border-radius: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .card:first-child, .card:nth-child(3), .card:nth-last-child(1), .card:nth-last-child(3) {
+                border-radius: 0.75rem;
+            }
+            .card-contact { padding: 1rem; }
+            .card-contact h2 { font-size: 1.3rem; }
+            .card-contact .title { font-size: 0.8rem; }
+            .card-contact .location { font-size: 0.7rem; }
+            .card-contact .profile-pic { width: 60px; height: 60px; }
+            .share-button {
+                bottom: 0.5rem;
+                right: 0.5rem;
+                width: 32px;
+                height: 32px;
+            }
+            .share-button svg {
+                width: 18px;
+                height: 18px;
+            }
+            .icon-row .fa-solid, .icon-row .fa-brands { font-size: 1.2rem; }
+            .icon-row { gap: 0.8rem; }
+
+            .card-interactive-button {
+                grid-column: 1;
+                grid-row: auto;
+                border-radius: 0.75rem;
+                margin-bottom: 0.5rem;
+                min-height: 25rem;
+            }
+            .card-online svg, .card-fast-forward img { width: 40px; height: 40px; }
+            .card-service-ad .animated-text { font-size: 1rem; }
+            .card-service-ad .placeholder-img { width: 50%; }
+            .card-ldar-animation .placeholder-img { width: 50%; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="logo">GARETH DAVIES</h1>
-                <nav>
-                    <ul>
-                        <li><a href="#">ABOUT</a></li>
-                        <li><a href="#">WORK</a></li>
-                        <li><a href="#">NEWS</a></li>
-                        <li><a href="#">CONTACT</a></li>
-                    </ul>
-                </nav>
-                <button>DOWNLOAD MY CV</button>
-        </header>
-        <main>
-            <div class="newsreel">
-                <h3>Welcome to my Page</h3>
-                <h1>GARETH DAVIES</h1>
-                <button class="news-btn">NEWS</button>
+    <div class="grid-container">
+        <!-- Card 1: Main Contact Card -->
+        <div class="card card-contact">
+            <div class="card-number">1</div>
+            <div class="profile-section">
+                <h2>Gareth Davies</h2>
+                <p class="title">Content Creator</p>
+                <p class="location">Trealaw, Rhondda Cynon Taff, UK</p>
             </div>
 
-            <div class="image-gallery">image name here</div>
-                
-        
-        </main>
-        <article>
-            <div class="news">News goes here</div>
-                <div class="socials">socials goes here</div>
-        </article>
-        <footer><p>Gareth Davies &COPY; 2025</p></footer>
+            <!-- Combined icon row at the bottom -->
+            <div class="icon-row">
+                <a href="tel:+447312246474" class="icon-link">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+                <a href="mailto:GDCO82@GMAIL.COM" class="icon-link">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+                <a href="https://instagram.com/garethdavies" target="_blank" rel="noopener noreferrer" class="icon-link">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/in/garethdavies" target="_blank" rel="noopener noreferrer" class="icon-link">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/garzyd1982" target="_blank" rel="noopener noreferrer" class="icon-link">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://pinterest.com/garethdavies" target="_blank" rel="noopener noreferrer" class="icon-link">
+                    <i class="fa-brands fa-pinterest"></i>
+                </a>
+            </div>
+
+            <!-- Share button -->
+            <button id="shareButton" class="share-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" x2="12" y1="2" y2="15"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Card 2: Interactive Liquid Fill Card -->
+        <div class="card card-interactive-button" id="liquidFillCard">
+            <div class="card-number">2</div>
+            <div class="liquid-container">
+                <div class="liquid"></div>
+                <div class="bubbles">
+                    <!-- Bubbles will be generated by JavaScript -->
+                </div>
+            </div>
+            <div class="card-content">
+                <p>ANIMATION</p>
+                <!-- Removed the button as interaction is now on hover -->
+            </div>
+        </div>
+
+        <!-- Card 3: Online Status Card -->
+        <div class="card card-online">
+            <div class="card-number">3</div>
+            <img src="https://placehold.co/40x40/CCCCCC/666666?text=User" alt="Online User Placeholder" class="placeholder-img">
+            <div class="top-content">
+                <p class="font-semibold">ONLINE</p>
+                <span class="status-indicator"></span>
+            </div>
+            <!-- Plus icon for adding new items -->
+            <svg class="text-gray-500 hover:text-blue-500 cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </div>
+
+        <!-- Card 4: Love, Death & Robots Style Animation Card (placeholders and text removed) -->
+        <div class="card card-ldar-animation">
+            <div class="card-number">4</div>
+            <!-- Placeholder image and canvas removed -->
+        </div>
+
+        <!-- Card 5: Fast Forward Card (placeholders and text removed) -->
+        <div class="card card-fast-forward">
+            <div class="card-number">5</div>
+            <!-- Text and image removed -->
+        </div>
+
+        <!-- Card 6: Map of Location -->
+        <div class="card card-map-location">
+            <div class="card-number">6</div>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.568285579294!2d-3.436730!3d51.618894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f16!3m3!1m2!1s0x0%3A0x0!2zNTHCsDM3JzEwLjAiTiAzwrAyNicxMi4yIlc!5e0!3m2!1sen!2suk!4v1678912345678!5m2!1sen!2suk"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map of coordinates 51.618894, -3.436730"
+            ></iframe>
+        </div>
+
+        <!-- Card 7: Ad for Services (placeholders and text removed) -->
+        <div class="card card-service-ad">
+            <div class="card-number">7</div>
+            <!-- Placeholder image and animated text removed -->
+        </div>
+        <!-- Card 8: CSS Portfolio Item (placeholders and text removed) -->
+        <div class="card card-portfolio-item card-css-animation">
+            <div class="card-number">8</div>
+            <!-- Placeholder image and content removed -->
+        </div>
+        <!-- Card 9: JavaScript Portfolio Item (placeholders and text removed) -->
+        <div class="card card-portfolio-item card-js-animation">
+            <div class="card-number">9</div>
+            <!-- Placeholder image and content removed -->
+        </div>
     </div>
+
+    <script>
+        const liquidFillCard = document.getElementById('liquidFillCard');
+        const liquidContainer = liquidFillCard.querySelector('.liquid-container');
+        const bubblesContainer = liquidFillCard.querySelector('.bubbles');
+        const shareButton = document.getElementById('shareButton');
+
+        let hasPlayedOnScroll = false; // Global flag to track if animation has played once on scroll
+
+        // Function to check if an element is in the viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            // Check if at least part of the element is visible
+            return (
+                rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom > 0 &&
+                rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+                rect.right > 0
+            );
+        }
+
+        // Function to generate bubbles
+        function generateBubbles() {
+            // Clear existing bubbles before generating new ones
+            bubblesContainer.innerHTML = '';
+            // Define a fixed size for all bubbles
+            const fixedBubbleSize = 12; // Reduced by 50% from 25px
+
+            const cardWidth = liquidFillCard.clientWidth; // Get actual width of the card
+            const numberOfBubbles = 15; // Reduced number of bubbles
+            // Calculate the width of each "lane" for bubbles to prevent overlap
+            // Add a small buffer to ensure space between bubbles
+            const segmentWidth = cardWidth / numberOfBubbles;
+
+            for (let i = 0; i < numberOfBubbles; i++) {
+                const bubble = document.createElement('span');
+                
+                // Calculate the start and end of the current segment in pixels
+                const segmentStartPx = i * segmentWidth;
+                const segmentEndPx = (i + 1) * segmentWidth;
+
+                // Ensure the bubble is placed within its segment, considering its own width
+                // Random position within the segment, ensuring it doesn't go outside
+                // and leaves a small gap from the edges of its segment
+                const minLeftPx = segmentStartPx + (fixedBubbleSize * 0.1); // 10% buffer
+                const maxLeftPx = segmentEndPx - fixedBubbleSize - (fixedBubbleSize * 0.1); // 10% buffer
+
+                let leftPx = minLeftPx + Math.random() * (maxLeftPx - minLeftPx);
+                
+                // Ensure leftPx doesn't go below 0 or above cardWidth - fixedBubbleSize
+                leftPx = Math.max(0, Math.min(leftPx, cardWidth - fixedBubbleSize));
+
+                // Convert pixels to percentage relative to the bubblesContainer width (which is 100%)
+                const leftPercent = (leftPx / cardWidth) * 100;
+
+                const delay = Math.random() * 1; // Stagger animation start (0s to 1s delay) - Reduced for quicker start
+                const duration = Math.random() * 3 + 4; // Duration between 4s and 7s (quicker)
+                const wobbleAmount = Math.random() * 30 - 15; // Random wobble from -15 to +15px (more pronounced)
+
+                bubble.style.setProperty('--bubble-size', `${fixedBubbleSize}px`);
+                bubble.style.setProperty('--bubble-left', `${leftPercent}%`);
+                bubble.style.setProperty('--bubble-duration', `${duration}s`); /* Pass duration as CSS variable */
+                bubble.style.setProperty('--bubble-wobble', `${wobbleAmount}`); /* Pass wobble amount as CSS variable */
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
+        // Function to clear bubbles from the DOM
+        function clearBubbles() {
+            bubblesContainer.innerHTML = '';
+        }
+
+        // Handle hover interaction for larger screens
+        function handleMouseEnter() {
+            liquidContainer.classList.add('filled');
+            generateBubbles();
+        }
+
+        function handleMouseLeave() {
+            liquidContainer.classList.remove('filled'); // Liquid drains immediately
+            // Clear bubbles after a very short delay to ensure no visual artifacts
+            setTimeout(clearBubbles, 500); // Clear bubbles after 500ms
+        }
+
+        // Handle click/tap interaction for smaller screens
+        function handleClick() {
+            const isSmallScreen = window.innerWidth <= 768;
+            if (isSmallScreen) {
+                if (liquidContainer.classList.contains('filled')) {
+                    // If already filled, drain it
+                    liquidContainer.classList.remove('filled');
+                    setTimeout(clearBubbles, 500); // Clear bubbles after 500ms
+                } else {
+                    // If not filled, fill it
+                    liquidContainer.classList.add('filled');
+                    generateBubbles();
+                }
+            }
+        }
+
+        // Handle scroll interaction for smaller screens
+        function handleScroll() {
+            const isSmallScreen = window.innerWidth <= 768; // Define small screen breakpoint
+
+            if (isSmallScreen) {
+                if (isInViewport(liquidFillCard)) {
+                    if (!liquidContainer.classList.contains('filled') && !hasPlayedOnScroll) {
+                        liquidContainer.classList.add('filled');
+                        generateBubbles();
+                        hasPlayedOnScroll = true; // Mark as played once on scroll
+                    }
+                } else {
+                    // If scrolled out of view, reset the animation state for next manual trigger
+                    // Only clear bubbles if the liquid is filled, and don't reset hasPlayedOnScroll
+                    if (liquidContainer.classList.contains('filled')) {
+                        liquidContainer.classList.remove('filled');
+                        setTimeout(clearBubbles, 500); // Clear bubbles after 500ms
+                    }
+                }
+            }
+        }
+
+        // Function to manage event listeners based on screen size
+        let currentScreenSizeHandler = null;
+
+        function manageInteractionListeners() {
+            const isSmallScreen = window.innerWidth <= 768;
+
+            // Remove all existing listeners first
+            liquidFillCard.removeEventListener('mouseenter', handleMouseEnter);
+            liquidFillCard.removeEventListener('mouseleave', handleMouseLeave);
+            window.removeEventListener('scroll', handleScroll);
+            liquidFillCard.removeEventListener('click', handleClick);
+
+            // Reset animation state and flag when switching interaction modes
+            liquidContainer.classList.remove('filled');
+            clearBubbles(); // Ensure no lingering bubbles
+            hasPlayedOnScroll = false; // Reset the flag on mode switch
+
+            // Apply new listeners based on screen size
+            if (isSmallScreen) {
+                window.addEventListener('scroll', handleScroll);
+                liquidFillCard.addEventListener('click', handleClick);
+                currentScreenSizeHandler = 'scroll';
+                // Trigger initial check for scroll if already in view on load
+                handleScroll();
+            } else {
+                liquidFillCard.addEventListener('mouseenter', handleMouseEnter);
+                liquidFillCard.addEventListener('mouseleave', handleMouseLeave);
+                currentScreenSizeHandler = 'hover';
+            }
+        }
+
+        // Initial call and on resize
+        window.addEventListener('load', manageInteractionListeners);
+        window.addEventListener('resize', manageInteractionListeners);
+
+
+        // Share button functionality
+        shareButton.addEventListener('click', () => {
+            const vcardContent = `BEGIN:VCARD
+VERSION:3.0
+FN:Gareth Davies
+N:Davies;Gareth;;;
+TITLE:Content Creator
+ORG:Gareth Davies Portfolio
+ADR;TYPE=WORK,PREF:;;Trealaw;Rhondda Cynon Taff;;;United Kingdom
+EMAIL;TYPE=INTERNET,PREF:GDCO82@GMAIL.COM
+TEL;TYPE=CELL,VOICE:+447312246474
+URL:https://instagram.com/garethdavies
+X-SOCIAL-LINKEDIN:https://linkedin.com/in/garethdavies
+X-SOCIAL-GITHUB:https://github.com/garzyd1982
+X-SOCIAL-PINTEREST:https://pinterest.com/garethdavies
+END:VCARD`;
+
+            const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Gareth_Davies_Contact.vcf';
+            document.body.appendChild(a); // Append to body to make it clickable
+            a.click();
+            document.body.removeChild(a); // Clean up
+            URL.revokeObjectURL(url); // Release the object URL
+        });
+    </script>
 </body>
 </html>
