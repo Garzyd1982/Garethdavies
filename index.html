@@ -3,38 +3,1948 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
+    <title>JavaScript Docs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* All white background */
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
-        .container {
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Custom styles for the burger menu animation */
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background-color: #333;
+            margin: 4px auto;
+            transition: all 0.3s ease-in-out;
         }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+        .hamburger.open .line-top {
+            transform: translateY(7px) rotate(45deg);
         }
-        p {
-            font-size: 1.2em;
+        .hamburger.open .line-middle {
+            opacity: 0;
+        }
+        .hamburger.open .line-bottom {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        /* Smooth transition for the mobile menu */
+        .nav-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* Specific styling for the desktop sidebar */
+        .sidebar {
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
+            background-color: #ffffff; /* Changed to white */
+            overflow-y: auto; /* Enable scrolling for long menus */
+            max-height: calc(100vh - 4rem - 56px);
+        }
+        .sidebar ul li a {
+            padding: 0.75rem 1.5rem; /* Padding for menu items */
+            display: block; /* Make links block level for full clickable area */
+            border-radius: 0.5rem; /* Rounded corners for menu items */
+            margin-bottom: 0.25rem; /* Space between menu items */
+        }
+        .sidebar ul li a:hover {
+            background-color: #f0f0f0; /* Light gray on hover for subtle effect */
+            color: #2563eb; /* Blue text on hover */
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Coming Soon!</h1>
-        <p>We're working hard to bring you something amazing. Please check back soon!</p>
+<body class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white p-4 relative z-10 flex items-center justify-between border-b border-gray-200">
+        <!-- Logo on the left -->
+        <div class="flex-shrink-0 flex items-center space-x-2">
+            <!-- Updated: Removed rounded-md and adjusted padding for a more square look -->
+            <div class="bg-yellow-400 px-3 py-2 flex items-center justify-center">
+                <span class="text-black font-bold text-lg">JS</span>
+            </div>
+            <!-- Added "Docs" next to the JS logo -->
+            <span class="text-2xl font-bold text-gray-800">Docs</span>
         </div>
+
+        <!-- Burger Menu Icon (Mobile - remains on right) -->
+        <div class="md:hidden">
+            <button id="hamburger" class="hamburger p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <span class="hamburger-line line-top"></span>
+                <span class="hamburger-line line-middle"></span>
+                <span class="hamburger-line line-bottom"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-0 hidden"></div>
+
+        <!-- Mobile Menu (Hidden by default, slides from right) -->
+        <nav id="mobile-menu" class="nav-menu fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full md:hidden z-20 overflow-y-auto">
+            <ul class="flex flex-col p-6 space-y-4 pt-16">
+                <li><a href="#javascript-concepts-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">JavaScript Concepts</a></li>
+                <li><a href="#variables-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Variables</a></li>
+                <li><a href="#data-types-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Data Types</a></li>
+                <li><a href="#operators-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Operators</a></li>
+                <li><a href="#comments-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Comments</a></li>
+                <li><a href="#statements-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Statements</a></li>
+                <li><a href="#conditionals-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Conditionals</a></li>
+                <li><a href="#loops-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Loops</a></li>
+                <li><a href="#functions-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Functions</a></li>
+                <li><a href="#arrow-functions-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Arrow Functions</a></li>
+                <li><a href="#variable-scope-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Variable Scope</a></li>
+                <li><a href="#hoisting-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Hoisting</a></li>
+                <li><a href="#objects-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Objects</a></li>
+                <li><a href="#arrays-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Arrays</a></li>
+                <li><a href="#strings-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Strings</a></li>
+                <li><a href="#substring-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Substring</a></li>
+                <li><a href="#number-methods-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Number Methods</a></li>
+                <li><a href="#dates-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Dates</a></li>
+                <li><a href="#methods-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Methods</a></li>
+                <li><a href="#mutators-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Mutators</a></li>
+                <li><a href="#accessors-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Accessors</a></li>
+                <li><a href="#constructors-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Constructors</a></li>
+                <li><a href="#this-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">this</a></li>
+                <li><a href="#events-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Events</a></li>
+                <li><a href="#event-handling-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Event Handling</a></li>
+                <li><a href="#dom-manipulation-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">DOM Manipulation</a></li>
+                <li><a href="#jquery-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">jQuery</a></li>
+                <li><a href="#json-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">JSON</a></li>
+                <li><a href="#ajax-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">AJAX</a></li>
+                <li><a href="#promises-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Promises</a></li>
+                <li><a href="#event-loop-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Event Loop</a></li>
+                <li><a href="#callbacks-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Callbacks</a></li>
+                <li><a href="#errors-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Errors</a></li>
+                <li><a href="#try-catch-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Try/Catch</a></li>
+                <li><a href="#strict-mode-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Strict Mode</a></li>
+                <li><a href="#type-coercion-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Type Coercion</a></li>
+                <li><a href="#regexp-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">RegExp</a></li>
+                <li><a href="#iterators-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Iterators</a></li>
+                <li><a href="#map-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Map</a></li>
+                <li><a href="#sets-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Sets</a></li>
+                <li><a href="#spread-operator-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Spread Operator</a></li>
+                <li><a href="#rest-parameters-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Rest Parameters</a></li>
+                <li><a href="#closures-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Closures</a></li>
+                <li><a href="#memoization-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Memoization</a></li>
+                <li><a href="#modules-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Modules</a></li>
+                <li><a href="#npm-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">npm</a></li>
+                <li><a href="#nullish-coalescing-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Nullish Coalescing</a></li>
+                <li><a href="#optional-chaining-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Optional Chaining</a></li>
+                <li><a href="#polyfill-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Polyfill</a></li>
+                <li><a href="#bitwise-operators-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Bitwise Operators</a></li>
+                <li><a href="#enums-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Enums</a></li>
+                <li><a href="#requests-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Requests</a></li>
+                <li><a href="#sort-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Sort</a></li>
+                <li><a href="#storage-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Storage</a></li>
+                <li><a href="#switch-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">Switch</a></li>
+                <li><a href="#window-content" class="text-black hover:text-blue-600 font-medium text-lg block py-2">window</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area (includes desktop sidebar and main content) -->
+    <div class="flex flex-grow">
+        <!-- Desktop Sidebar Menu (hidden on mobile, block on md and up) -->
+        <nav class="sidebar hidden md:block md:w-3/10">
+            <ul class="flex flex-col space-y-1 px-4 py-4">
+                <li><a href="#javascript-concepts-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">JavaScript Concepts</a></li>
+                <li><a href="#variables-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Variables</a></li>
+                <li><a href="#data-types-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Data Types</a></li>
+                <li><a href="#operators-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Operators</a></li>
+                <li><a href="#comments-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Comments</a></li>
+                <li><a href="#statements-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Statements</a></li>
+                <li><a href="#conditionals-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Conditionals</a></li>
+                <li><a href="#loops-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Loops</a></li>
+                <li><a href="#functions-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Functions</a></li>
+                <li><a href="#arrow-functions-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Arrow Functions</a></li>
+                <li><a href="#variable-scope-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Variable Scope</a></li>
+                <li><a href="#hoisting-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Hoisting</a></li>
+                <li><a href="#objects-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Objects</a></li>
+                <li><a href="#arrays-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Arrays</a></li>
+                <li><a href="#strings-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Strings</a></li>
+                <li><a href="#substring-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Substring</a></li>
+                <li><a href="#number-methods-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Number Methods</a></li>
+                <li><a href="#dates-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Dates</a></li>
+                <li><a href="#methods-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Methods</a></li>
+                <li><a href="#mutators-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Mutators</a></li>
+                <li><a href="#accessors-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Accessors</a></li>
+                <li><a href="#constructors-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Constructors</a></li>
+                <li><a href="#this-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">this</a></li>
+                <li><a href="#events-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Events</a></li>
+                <li><a href="#event-handling-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Event Handling</a></li>
+                <li><a href="#dom-manipulation-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">DOM Manipulation</a></li>
+                <li><a href="#jquery-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">jQuery</a></li>
+                <li><a href="#json-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">JSON</a></li>
+                <li><a href="#ajax-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">AJAX</a></li>
+                <li><a href="#promises-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Promises</a></li>
+                <li><a href="#event-loop-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Event Loop</a></li>
+                <li><a href="#callbacks-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Callbacks</a></li>
+                <li><a href="#errors-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Errors</a></li>
+                <li><a href="#try-catch-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Try/Catch</a></li>
+                <li><a href="#strict-mode-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Strict Mode</a></li>
+                <li><a href="#type-coercion-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Type Coercion</a></li>
+                <li><a href="#regexp-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">RegExp</a></li>
+                <li><a href="#iterators-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Iterators</a></li>
+                <li><a href="#map-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Map</a></li>
+                <li><a href="#sets-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Sets</a></li>
+                <li><a href="#spread-operator-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Spread Operator</a></li>
+                <li><a href="#rest-parameters-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Rest Parameters</a></li>
+                <li><a href="#closures-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Closures</a></li>
+                <li><a href="#memoization-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Memoization</a></li>
+                <li><a href="#modules-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Modules</a></li>
+                <li><a href="#npm-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">npm</a></li>
+                <li><a href="#nullish-coalescing-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Nullish Coalescing</a></li>
+                <li><a href="#optional-chaining-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Optional Chaining</a></li>
+                <li><a href="#polyfill-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Polyfill</a></li>
+                <li><a href="#bitwise-operators-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Bitwise Operators</a></li>
+                <li><a href="#enums-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Enums</a></li>
+                <li><a href="#requests-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Requests</a></li>
+                <li><a href="#sort-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Sort</a></li>
+                <li><a href="#storage-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Storage</a></li>
+                <li><a href="#switch-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">Switch</a></li>
+                <li><a href="#window-content" class="text-black hover:bg-gray-100 hover:text-blue-700 font-medium rounded-md">window</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Section -->
+        <main class="w-full md:w-7/10 px-4 py-8 flex flex-col items-start">
+            <!-- JavaScript Concepts Content -->
+            <section id="javascript-concepts-content" class="max-w-xl w-full mx-auto">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">JavaScript Concepts</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Welcome to the comprehensive documentation for JavaScript Concepts. This section is designed to be your go-to resource for understanding the fundamental building blocks and advanced paradigms of JavaScript. Whether you're just starting your journey into web development or looking to deepen your expertise, you'll find clear explanations, practical examples, and insightful details here.
+                </p>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Navigate through the extensive list of topics in the left-hand menu (or the mobile menu on smaller screens). Each link will take you to a dedicated page explaining a specific concept, from basic data types and control flow to more complex subjects like asynchronous programming, closures, and module patterns.
+                </p>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    We cover a wide array of topics including:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Accessors: Understanding `get` and `set` methods for object properties.</li>
+                    <li>AJAX: Making asynchronous HTTP requests without page reloads.</li>
+                    <li>Arrays: Working with ordered collections of data.</li>
+                    <li>Arrow Functions: A concise syntax for writing function expressions.</li>
+                    <li>Bitwise Operators: Performing operations on the binary representation of numbers.</li>
+                    <li>Callbacks: Functions passed as arguments to other functions.</li>
+                    <li>Closures: Functions remembering their lexical environments.</li>
+                    <li>DOM Manipulation: Interacting with the structure and content of web pages.</li>
+                    <li>Promises: Handling asynchronous operations more elegantly.</li>
+                    <li>Storage: Using `localStorage` and `sessionStorage` for client-side data persistence.</li>
+                    <li>`this` Keyword: Understanding its dynamic context in different scenarios.</li>
+                    <li>Try/Catch: Error handling mechanisms for robust code.</li>
+                    <li>Variable Scope: How variables are accessible throughout your code.</li>
+                </ul>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Each entry aims to provide a clear definition, relevant code snippets, and explanations of best practices. We encourage you to explore each topic thoroughly and experiment with the examples provided. Happy learning!
+                </p>
+            </section>
+
+            <!-- Variables Content -->
+            <section id="variables-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Variables</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Variables are containers for storing data values. In JavaScript, you declare variables using `var`, `let`, or `const`.
+                </p>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    <ul>
+                        <li>`var`: Historically used, function-scoped, and can be re-declared and re-assigned.</li>
+                        <li>`let`: Block-scoped, can be re-assigned but not re-declared in the same scope.</li>
+                        <li>`const`: Block-scoped, cannot be re-assigned or re-declared after initial assignment.</li>
+                    </ul>
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Using var
+var greeting = "Hello";
+greeting = "Hi"; // Re-assigned
+var greeting = "Hey"; // Re-declared (not recommended)
+
+// Using let
+let count = 10;
+count = 20; // Re-assigned
+// let count = 30; // Error: Cannot re-declare block-scoped variable
+
+// Using const
+const PI = 3.14159;
+// PI = 3.0; // Error: Assignment to constant variable
+const user = { name: "Alice" };
+user.name = "Bob"; // Object properties can be changed, but the reference cannot
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    It's generally recommended to use `const` by default, and `let` if you know the variable needs to be re-assigned. Avoid `var` in modern JavaScript development.
+                </p>
+            </section>
+
+            <!-- Data Types Content -->
+            <section id="data-types-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Data Types</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    JavaScript has several built-in data types that categorize the kind of values a variable can hold. These can be broadly divided into primitive and non-primitive (object) types.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Primitive Data Types:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>String: Represents textual data (e.g., `"Hello, world!"`).</li>
+                    <li>Number: Represents both integer and floating-point numbers (e.g., `10`, `3.14`).</li>
+                    <li>BigInt: Represents whole numbers larger than `2^53 - 1`.</li>
+                    <li>Boolean: Represents a logical entity and can have two values: `true` or `false`.</li>
+                    <li>Undefined: Represents a variable that has been declared but not yet assigned a value.</li>
+                    <li>Null: Represents the intentional absence of any object value.</li>
+                    <li>Symbol: Represents a unique identifier.</li>
+                </ul>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Non-Primitive Data Type:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Object: A complex data type that allows you to store collections of data. This includes arrays, functions, and plain objects.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let name = "John"; // String
+let age = 30; // Number
+let isStudent = true; // Boolean
+let score; // Undefined
+let car = null; // Null
+let id = Symbol('id'); // Symbol
+
+let person = {
+    firstName: "Jane",
+    lastName: "Doe"
+}; // Object
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Understanding data types is crucial for performing correct operations and avoiding unexpected behavior in your JavaScript code.
+                </p>
+            </section>
+
+            <!-- Operators Content -->
+            <section id="operators-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Operators</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Operators in JavaScript are symbols that perform operations on one or more operands. They can be categorized into arithmetic, assignment, comparison, logical, and bitwise operators.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common Operators:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Arithmetic: `+`, `-`, `*`, `/`, `%` (modulus), `**` (exponentiation)</li>
+                    <li>Assignment: `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `**=`</li>
+                    <li>Comparison: `==`, `===`, `!=`, `!==`, `>`, `<`, `>=`, `<=`</li>
+                    <li>Logical: `&&` (AND), `||` (OR), `!` (NOT)</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let x = 10;
+let y = 5;
+let sum = x + y; // Arithmetic: 15
+x += 5; // Assignment: x is now 15
+let isEqual = (x === y); // Comparison: false
+let isTrue = (sum > 10 && isEqual === false); // Logical: true
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Operators are essential for performing calculations, making decisions, and manipulating data in your programs.
+                </p>
+            </section>
+
+            <!-- Comments Content -->
+            <section id="comments-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Comments</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Comments are non-executable lines of code used to explain the code, making it more readable and understandable for developers. JavaScript supports single-line and multi-line comments.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Types of Comments:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Single-line comments: Start with `//` and comment out the rest of the line.</li>
+                    <li>Multi-line comments: Start with `/*` and end with `*/`, commenting out all text between them.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// This is a single-line comment
+
+/*
+This is a multi-line comment.
+It can span across multiple lines.
+*/
+let data = 100; // This comments on the 'data' variable
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Use comments effectively to document your code, explain complex logic, or temporarily disable code during debugging.
+                </p>
+            </section>
+
+            <!-- Statements Content -->
+            <section id="statements-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Statements</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A JavaScript statement is a command to be executed by the web browser. Most JavaScript statements end with a semicolon (`;`).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Examples of Statements:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Variable declarations: `let x = 5;`</li>
+                    <li>Assignment statements: `x = x + 1;`</li>
+                    <li>Function calls: `console.log("Hello");`</li>
+                    <li>Conditional statements: `if (x > 0) { ... }`</li>
+                    <li>Loop statements: `for (let i = 0; i < 5; i++) { ... }`</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let message = "Hello World"; // Variable declaration and assignment
+console.log(message);        // Function call
+if (message.length > 5) {    // Conditional statement
+    console.log("Long message");
+}
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Statements form the backbone of JavaScript programs, defining the actions and logic.
+                </p>
+            </section>
+
+            <!-- Conditionals Content -->
+            <section id="conditionals-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Conditionals</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Conditional statements allow you to execute different blocks of code based on whether a specified condition is true or false. The most common conditional statements are `if`, `else if`, and `else`.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">If-Else If-Else Structure:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let temperature = 25;
+
+if (temperature > 30) {
+    console.log("It's hot!");
+} else if (temperature > 20) {
+    console.log("It's warm.");
+} else {
+    console.log("It's cool.");
+}
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Conditional statements are crucial for creating dynamic and responsive programs that can adapt to different scenarios.
+                </p>
+            </section>
+
+            <!-- Loops Content -->
+            <section id="loops-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Loops</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Loops are used to repeatedly execute a block of code as long as a certain condition is met. Common loop types include `for`, `while`, `do...while`, `for...in`, and `for...of`.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">For Loop Example:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+for (let i = 0; i < 5; i++) {
+    console.log("Iteration " + i);
+}
+// Output:
+// Iteration 0
+// Iteration 1
+// Iteration 2
+// Iteration 3
+// Iteration 4
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Loops are essential for automating repetitive tasks and iterating over collections of data.
+                </p>
+            </section>
+
+            <!-- Functions Content (already exists, but adding to list for completeness) -->
+            <section id="functions-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Functions</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Functions are blocks of code designed to perform a particular task. They are reusable and can be called multiple times throughout your program.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Function Declaration:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+console.log(greet("Alice")); // Output: Hello, Alice!
+                </code></pre>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Function Expression:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const add = function(a, b) {
+    return a + b;
+};
+console.log(add(5, 3)); // Output: 8
+                </code></pre>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Arrow Functions (ES6):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const multiply = (a, b) => a * b;
+console.log(multiply(4, 2)); // Output: 8
+
+const sayHi = () => {
+    console.log("Hi there!");
+};
+sayHi(); // Output: Hi there!
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Functions are fundamental to structuring and organizing your JavaScript code, promoting reusability and modularity.
+                </p>
+            </section>
+
+            <!-- Arrow Functions Content -->
+            <section id="arrow-functions-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Arrow Functions</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Introduced in ES6, arrow functions provide a more concise syntax for writing function expressions. They also handle the `this` keyword differently than traditional functions.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Traditional function
+const addTraditional = function(a, b) {
+    return a + b;
+};
+
+// Arrow function
+const addArrow = (a, b) => a + b;
+
+console.log(addTraditional(2, 3)); // 5
+console.log(addArrow(2, 3));      // 5
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Arrow functions are often preferred for their brevity and for maintaining the lexical `this` context.
+                </p>
+            </section>
+
+            <!-- Variable Scope Content -->
+            <section id="variable-scope-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Variable Scope</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Scope defines the accessibility of variables, functions, and objects in some particular part of your code during runtime. JavaScript has global scope, function scope, and block scope (with `let` and `const`).
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let globalVar = "I'm global";
+
+function exampleScope() {
+    let functionVar = "I'm function-scoped";
+    if (true) {
+        let blockVar = "I'm block-scoped";
+        console.log(blockVar); // Accessible
+    }
+    // console.log(blockVar); // Error: blockVar is not defined
+    console.log(functionVar); // Accessible
+}
+exampleScope();
+console.log(globalVar); // Accessible
+// console.log(functionVar); // Error: functionVar is not defined
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Understanding scope is critical for preventing naming conflicts and writing predictable code.
+                </p>
+            </section>
+
+            <!-- Hoisting Content -->
+            <section id="hoisting-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Hoisting</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Hoisting is a JavaScript mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, before code execution.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+console.log(myVariable); // Output: undefined (var is hoisted)
+var myVariable = 5;
+
+console.log(myFunction()); // Output: "Hello from function"
+function myFunction() {
+    return "Hello from function";
+}
+
+// console.log(myLetVariable); // Error: Cannot access 'myLetVariable' before initialization (let/const are not hoisted in the same way)
+let myLetVariable = 10;
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    While declarations are hoisted, initializations are not. `let` and `const` declarations are also hoisted but are in a "temporal dead zone" until initialized.
+                </p>
+            </section>
+
+            <!-- Objects Content -->
+            <section id="objects-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Objects</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Objects in JavaScript are collections of key-value pairs, where keys are strings (or Symbols) and values can be any data type, including other objects or functions. They are fundamental for representing structured data.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    isStudent: false,
+    greet: function() {
+        return "Hello, my name is " + this.firstName;
+    }
+};
+
+console.log(person.firstName); // Access property: "John"
+console.log(person["age"]);    // Access property: 30
+console.log(person.greet());   // Call method: "Hello, my name is John"
+
+person.age = 31; // Modify property
+person.city = "New York"; // Add new property
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Objects are versatile and widely used for data modeling and organizing related functionalities.
+                </p>
+            </section>
+
+            <!-- Arrays Content -->
+            <section id="arrays-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Arrays</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Arrays are ordered, zero-indexed collections of data. They can hold values of any data type and are dynamic in size.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const fruits = ["Apple", "Banana", "Cherry"];
+
+console.log(fruits[0]); // Access element: "Apple"
+console.log(fruits.length); // Get length: 3
+
+fruits.push("Date"); // Add element to end
+console.log(fruits); // ["Apple", "Banana", "Cherry", "Date"]
+
+fruits.pop(); // Remove last element
+console.log(fruits); // ["Apple", "Banana", "Cherry"]
+
+fruits[1] = "Blueberry"; // Modify element
+console.log(fruits); // ["Apple", "Blueberry", "Cherry"]
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Arrays provide powerful methods for manipulating and iterating over lists of data.
+                </p>
+            </section>
+
+            <!-- Strings Content -->
+            <section id="strings-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Strings</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Strings are immutable sequences of characters used to represent text. They can be created using single quotes, double quotes, or backticks (for template literals).
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let singleQuote = 'Hello';
+let doubleQuote = "World";
+let templateLiteral = `The ${singleQuote} ${doubleQuote}!`; // ES6 template literal
+
+console.log(templateLiteral); // "The Hello World!"
+console.log(templateLiteral.length); // 16
+console.log(templateLiteral.toUpperCase()); // "THE HELLO WORLD!"
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    JavaScript provides numerous built-in methods for manipulating strings, such as `length`, `toUpperCase()`, `toLowerCase()`, `indexOf()`, `slice()`, and `replace()`.
+                </p>
+            </section>
+
+            <!-- Substring Content -->
+            <section id="substring-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Substring</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `substring()` method extracts characters from a string, between two specified indices, and returns the new sub-string.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let text = "JavaScript";
+let part1 = text.substring(0, 4); // "Java" (characters from index 0 up to, but not including, 4)
+let part2 = text.substring(4);    // "Script" (characters from index 4 to the end)
+
+console.log(part1);
+console.log(part2);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    `substring()` treats its arguments as `start` and `end` indices, swapping them if `start` is greater than `end`. It also handles negative arguments as 0.
+                </p>
+            </section>
+
+            <!-- Number Methods Content -->
+            <section id="number-methods-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Number Methods</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    JavaScript's `Number` object provides various methods for working with numbers, including formatting, converting, and checking properties.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Examples:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`toFixed(digits)`: Formats a number with a specified number of digits after the decimal point.</li>
+                    <li>`toPrecision(precision)`: Formats a number to a specified length.</li>
+                    <li>`toString()`: Converts a number to a string.</li>
+                    <li>`isNaN()`: Checks if a value is `NaN` (Not-a-Number).</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let num = 123.456;
+console.log(num.toFixed(2));    // "123.46"
+console.log(num.toPrecision(4)); // "123.5"
+console.log(num.toString());    // "123.456"
+
+let notANumber = parseInt("hello");
+console.log(isNaN(notANumber)); // true
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    These methods are useful for data presentation and validation.
+                </p>
+            </section>
+
+            <!-- Dates Content -->
+            <section id="dates-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Dates</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The JavaScript `Date` object is used to work with dates and times. You can create new `Date` objects, get various components of a date (year, month, day, hour, minute, second), and format them.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const now = new Date();
+console.log(now); // Current date and time
+
+const specificDate = new Date("2025-07-25T10:00:00Z");
+console.log(specificDate.getFullYear()); // 2025
+console.log(specificDate.getMonth());    // 6 (July is 0-indexed)
+console.log(specificDate.getDate());     // 25
+
+console.log(now.toLocaleDateString()); // Formatted date string (e.g., "7/25/2025")
+console.log(now.toLocaleTimeString()); // Formatted time string (e.g., "10:00:00 AM")
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Working with dates often involves handling time zones and different date formats, which the `Date` object and its methods help manage.
+                </p>
+            </section>
+
+            <!-- Methods Content -->
+            <section id="methods-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Methods</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    In JavaScript, a method is a function that is a property of an object. Methods are actions that can be performed on objects, allowing them to exhibit behavior.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const car = {
+    make: "Toyota",
+    model: "Camry",
+    start: function() { // This is a method
+        console.log("Engine started!");
+    },
+    stop() { // Shorthand method syntax (ES6)
+        console.log("Engine stopped.");
+    }
+};
+
+car.start(); // Call the start method
+car.stop();  // Call the stop method
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Methods are crucial for object-oriented programming in JavaScript, enabling objects to encapsulate both data and the functions that operate on that data.
+                </p>
+            </section>
+
+            <!-- Mutators Content -->
+            <section id="mutators-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Mutators</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Mutator methods are those that change the state or content of the object they are called on. For example, array mutator methods directly modify the array.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Array Mutator Examples:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`push()`: Adds one or more elements to the end of an array.</li>
+                    <li>`pop()`: Removes the last element from an array.</li>
+                    <li>`splice()`: Changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.</li>
+                    <li>`sort()`: Sorts the elements of an array in place.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let numbers = [1, 2, 3];
+numbers.push(4); // numbers is now [1, 2, 3, 4]
+console.log(numbers);
+
+let fruits = ["Banana", "Orange", "Apple"];
+fruits.sort(); // fruits is now ["Apple", "Banana", "Orange"]
+console.log(fruits);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Be mindful when using mutator methods, as they directly alter the original data structure, which can have side effects if not managed carefully.
+                </p>
+            </section>
+
+            <!-- Accessors Content -->
+            <section id="accessors-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Accessors</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Accessor methods are those that access or retrieve information from an object without modifying its state. They return a new value or a new data structure.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Array Accessor Examples:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`concat()`: Returns a new array by concatenating two or more arrays.</li>
+                    <li>`slice()`: Returns a shallow copy of a portion of an array into a new array object.</li>
+                    <li>`indexOf()`: Returns the first index at which a given element can be found in the array.</li>
+                    <li>`map()`: Creates a new array populated with the results of calling a provided function on every element in the calling array.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let arr1 = [1, 2];
+let arr2 = [3, 4];
+let newArr = arr1.concat(arr2); // newArr is [1, 2, 3, 4], arr1 remains [1, 2]
+console.log(newArr);
+
+let original = ["a", "b", "c", "d"];
+let sliced = original.slice(1, 3); // sliced is ["b", "c"], original remains unchanged
+console.log(sliced);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Accessor methods are preferred when you need to retrieve data or create new derived data without altering the original source.
+                </p>
+            </section>
+
+            <!-- Constructors Content -->
+            <section id="constructors-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Constructors</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    In JavaScript, a constructor is a special method used to create and initialize an object created within a class. It's called automatically when a new object is instantiated with the `new` keyword.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    greet() {
+        return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+    }
+}
+
+const alice = new Person("Alice", 30); // Calls the constructor
+console.log(alice.greet()); // "Hello, my name is Alice and I am 30 years old."
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Constructors are fundamental to object-oriented programming, allowing you to define blueprints for creating multiple objects with similar properties and behaviors.
+                </p>
+            </section>
+
+            <!-- this Content -->
+            <section id="this-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">`this` Keyword</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `this` keyword in JavaScript refers to the object that is currently executing the code. Its value depends on how the function is called.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">`this` Context Examples:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Global context: `this` refers to the global object (`window` in browsers).</li>
+                    <li>Object method: `this` refers to the object itself.</li>
+                    <li>Event handler: `this` refers to the element that received the event.</li>
+                    <li>Arrow functions: `this` retains the `this` value of the enclosing lexical context.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+console.log(this === window); // In global scope: true
+
+const obj = {
+    name: "Object",
+    greet: function() {
+        console.log(`Hello from ${this.name}`); // 'this' refers to obj
+    }
+};
+obj.greet(); // "Hello from Object"
+
+const arrowObj = {
+    name: "Arrow Object",
+    greet: () => {
+        console.log(`Hello from ${this.name}`); // 'this' refers to window (lexical 'this')
+    }
+};
+arrowObj.greet(); // "Hello from " (or "Hello from Window" in browser)
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Understanding `this` is crucial for working with objects, classes, and event handling in JavaScript.
+                </p>
+            </section>
+
+            <!-- Events Content -->
+            <section id="events-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Events</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Events are actions or occurrences that happen in the system you are programming, which the system tells you about so you can respond to them. In web development, events are triggered by user interactions (e.g., clicks, key presses) or browser actions (e.g., page load).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common HTML Events:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`click`: When an element is clicked.</li>
+                    <li>`mouseover`: When the mouse pointer moves over an element.</li>
+                    <li>`keydown`: When a keyboard key is pressed down.</li>
+                    <li>`load`: When a page or image has finished loading.</li>
+                    <li>`submit`: When a form is submitted.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+&lt;button id="myButton"&gt;Click Me&lt;/button&gt;
+&lt;script&gt;
+    document.getElementById('myButton').addEventListener('click', function() {
+        alert('Button clicked!');
+    });
+&lt;/script&gt;
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Events are the foundation of interactive web pages, allowing JavaScript to react to user actions and dynamic changes.
+                </p>
+            </section>
+
+            <!-- Event Handling Content -->
+            <section id="event-handling-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Event Handling</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Event handling is the process of responding to events triggered by user actions or browser activities. JavaScript provides methods like `addEventListener()` to attach functions (event handlers) to specific events on DOM elements.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+&lt;input type="text" id="myInput"&gt;
+&lt;p id="output"&gt;&lt;/p&gt;
+&lt;script&gt;
+    const myInput = document.getElementById('myInput');
+    const output = document.getElementById('output');
+
+    myInput.addEventListener('input', function() {
+        output.textContent = "You typed: " + myInput.value;
+    });
+&lt;/script&gt;
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Effective event handling is key to building interactive and dynamic user interfaces. It allows you to define what happens when a user clicks a button, types in a field, or performs other actions.
+                </p>
+            </section>
+
+            <!-- DOM Manipulation Content -->
+            <section id="dom-manipulation-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">DOM Manipulation</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    DOM (Document Object Model) manipulation refers to changing the structure, style, or content of a web page using JavaScript. The DOM represents the page as a tree of objects, allowing JavaScript to access and modify elements.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common DOM Methods:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`document.getElementById()`: Selects an element by its ID.</li>
+                    <li>`document.querySelector()`: Selects the first element that matches a CSS selector.</li>
+                    <li>`element.textContent` / `element.innerHTML`: Get or set the text/HTML content.</li>
+                    <li>`element.setAttribute()`: Sets the value of an attribute on the specified element.</li>
+                    <li>`document.createElement()`: Creates a new element.</li>
+                    <li>`parentNode.appendChild()`: Adds a new child node to an element.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+&lt;div id="container"&gt;&lt;/div&gt;
+&lt;script&gt;
+    const container = document.getElementById('container');
+    const newParagraph = document.createElement('p');
+    newParagraph.textContent = "This is a new paragraph added by JavaScript!";
+    container.appendChild(newParagraph);
+    container.style.backgroundColor = "#e6ffe6"; // Change background
+&lt;/script&gt;
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    DOM manipulation is central to creating dynamic and interactive web interfaces, allowing content to change without full page reloads.
+                </p>
+            </section>
+
+            <!-- jQuery Content -->
+            <section id="jquery-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">jQuery</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    jQuery is a fast, small, and feature-rich JavaScript library. It simplifies HTML document traversal and manipulation, event handling, animation, and Ajax interactions for rapid web development. While modern JavaScript often provides native alternatives, jQuery is still widely used in many existing projects.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+&lt;!-- Include jQuery library --&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;
+&lt;div id="myDiv"&gt;Hello jQuery!&lt;/div&gt;
+&lt;script&gt;
+    $(document).ready(function() {
+        $('#myDiv').css('color', 'blue').hide().fadeIn(1000);
+    });
+&lt;/script&gt;
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    jQuery's concise syntax and cross-browser compatibility made it incredibly popular for simplifying common web development tasks.
+                </p>
+            </section>
+
+            <!-- JSON Content -->
+            <section id="json-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">JSON</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write, and easy for machines to parse and generate. It is based on a subset of the JavaScript programming language and is commonly used for transmitting data between a web application and a server.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">JSON Structure:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+{
+    "name": "Alice",
+    "age": 25,
+    "isStudent": true,
+    "courses": ["Math", "Science"],
+    "address": {
+        "street": "123 Main St",
+        "city": "Anytown"
+    }
+}
+                </code></pre>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Working with JSON in JavaScript:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const jsonString = '{"name": "Bob", "age": 40}';
+const jsonObject = JSON.parse(jsonString); // Convert JSON string to JavaScript object
+console.log(jsonObject.name); // "Bob"
+
+const jsObject = { city: "London", population: 9000000 };
+const newJsonString = JSON.stringify(jsObject); // Convert JavaScript object to JSON string
+console.log(newJsonString); // '{"city":"London","population":9000000}'
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    `JSON.parse()` and `JSON.stringify()` are built-in JavaScript methods for converting between JSON strings and JavaScript objects.
+                </p>
+            </section>
+
+            <!-- AJAX Content -->
+            <section id="ajax-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">AJAX</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    AJAX (Asynchronous JavaScript and XML) is a set of web development techniques using many web technologies on the client-side to create asynchronous web applications. With Ajax, web applications can send and retrieve data from a server asynchronously (in the background) without interfering with the display and behavior of the existing page.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Fetch API Example (Modern AJAX):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Example using Fetch API to get data
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(error => console.error('Error fetching data:', error));
+
+// Example using async/await with Fetch
+async function getUserData() {
+    try {
+        const response = await fetch('https://api.example.com/users/1');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Failed to fetch user data:', error);
+    }
+}
+// getUserData();
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    AJAX is crucial for building dynamic web applications that can update parts of a page without a full refresh, providing a smoother user experience. The `fetch` API is the modern way to perform AJAX requests.
+                </p>
+            </section>
+
+            <!-- Promises Content -->
+            <section id="promises-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Promises</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A `Promise` is a JavaScript object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value. Promises provide a cleaner way to handle asynchronous code compared to traditional callbacks (callback hell).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Promise States:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`pending`: Initial state, neither fulfilled nor rejected.</li>
+                    <li>`fulfilled` (`resolved`): Meaning that the operation completed successfully.</li>
+                    <li>`rejected`: Meaning that the operation failed.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const myPromise = new Promise((resolve, reject) => {
+    // Simulate an asynchronous operation
+    setTimeout(() => {
+        const success = true; // Change to false to see rejection
+        if (success) {
+            resolve("Data fetched successfully!");
+        } else {
+            reject("Failed to fetch data.");
+        }
+    }, 2000);
+});
+
+myPromise
+    .then(message => {
+        console.log(message); // "Data fetched successfully!"
+    })
+    .catch(error => {
+        console.error(error); // "Failed to fetch data."
+    });
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Promises are fundamental for modern asynchronous JavaScript, often used with `fetch` API and `async/await`.
+                </p>
+            </section>
+
+            <!-- Event Loop Content -->
+            <section id="event-loop-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Event Loop</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The Event Loop is a crucial part of JavaScript's concurrency model, allowing it to perform non-blocking I/O operations despite JavaScript being single-threaded. It continuously checks the message queue for tasks to execute.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+console.log("Start"); // 1. Executed immediately
+
+setTimeout(() => {
+    console.log("Timeout callback"); // 3. Executed after 0ms, but placed in queue
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Promise callback"); // 2. Executed before setTimeout (microtask queue)
+});
+
+console.log("End"); // 1. Executed immediately
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Understanding the Event Loop is key to comprehending how asynchronous operations like `setTimeout`, `fetch`, and Promises work in JavaScript.
+                </p>
+            </section>
+
+            <!-- Callbacks Content -->
+            <section id="callbacks-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Callbacks</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. Callbacks are a fundamental pattern for asynchronous programming in JavaScript.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function fetchData(callback) {
+    setTimeout(() => {
+        const data = "Some data from server";
+        callback(data); // Call the callback function with the data
+    }, 1000);
+}
+
+function processData(data) {
+    console.log("Processing: " + data);
+}
+
+fetchData(processData); // Pass processData as a callback
+// Output after 1 second: "Processing: Some data from server"
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    While powerful, excessive nesting of callbacks can lead to "callback hell," which is often mitigated by Promises or `async/await`.
+                </p>
+            </section>
+
+            <!-- Errors Content -->
+            <section id="errors-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Errors</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Errors in JavaScript indicate that something unexpected or problematic occurred during the execution of a script. JavaScript provides an `Error` object and various built-in error types (e.g., `TypeError`, `ReferenceError`, `SyntaxError`).
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Example of a ReferenceError
+try {
+    console.log(nonExistentVariable);
+} catch (error) {
+    console.error("Caught an error:", error.name); // "ReferenceError"
+    console.error("Message:", error.message);     // "nonExistentVariable is not defined"
+}
+
+// Example of a TypeError
+try {
+    null.f(); // Cannot read properties of null
+} catch (error) {
+    console.error("Caught an error:", error.name); // "TypeError"
+}
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Proper error handling is crucial for creating robust applications that can gracefully recover from unexpected issues.
+                </p>
+            </section>
+
+            <!-- Try/Catch Content -->
+            <section id="try-catch-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Try/Catch</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `try...catch` statement is used for error handling in JavaScript. It allows you to test a block of code for errors and handle them gracefully without stopping the script's execution.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function divide(a, b) {
+    try {
+        if (b === 0) {
+            throw new Error("Division by zero is not allowed.");
+        }
+        return a / b;
+    } catch (error) {
+        console.error("An error occurred:", error.message);
+        return NaN; // Return Not-a-Number on error
+    } finally {
+        console.log("Division attempt finished."); // Always executes
+    }
+}
+
+console.log(divide(10, 2)); // Output: 5, "Division attempt finished."
+console.log(divide(10, 0)); // Output: "An error occurred: Division by zero is not allowed.", NaN, "Division attempt finished."
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    The `finally` block (optional) executes regardless of whether an error occurred or was caught, often used for cleanup operations.
+                </p>
+            </section>
+
+            <!-- Strict Mode Content -->
+            <section id="strict-mode-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Strict Mode</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    "Strict mode" is a way to opt-in to a restricted variant of JavaScript. It eliminates some JavaScript silent errors by changing them to throw errors, fixes mistakes that make it difficult for JavaScript engines to perform optimizations, and prohibits some syntax likely to be defined in future versions of ECMAScript.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+"use strict"; // Enable strict mode for the entire script or function
+
+// Example 1: Assigning to an undeclared variable (error in strict mode)
+try {
+    // undeclaredVar = 10; // This would throw a ReferenceError in strict mode
+} catch (e) {
+    console.error(e.message);
+}
+
+// Example 2: Deleting a non-configurable property (error in strict mode)
+const obj = {};
+Object.defineProperty(obj, 'x', { value: 10, configurable: false });
+try {
+    // delete obj.x; // This would throw a TypeError in strict mode
+} catch (e) {
+    console.error(e.message);
+}
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    It's highly recommended to use strict mode for new JavaScript code to catch common coding mistakes and write more secure and optimized applications.
+                </p>
+            </section>
+
+            <!-- Type Coercion Content -->
+            <section id="type-coercion-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Type Coercion</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Type coercion is the automatic or implicit conversion of values from one data type to another (e.g., string to number, number to boolean). This often occurs when operators are used with values of different types.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Implicit coercion (JavaScript automatically converts types)
+console.log(5 + "5"); // "55" (Number 5 is coerced to string "5")
+console.log("10" - 5); // 5 (String "10" is coerced to number 10)
+console.log(true == 1); // true (Boolean true is coerced to number 1)
+console.log(false == 0); // true (Boolean false is coerced to number 0)
+
+// Explicit coercion (manual conversion)
+console.log(Number("100")); // 100
+console.log(String(123));   // "123"
+console.log(Boolean(0));    // false
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    While implicit coercion can be convenient, it can also lead to unexpected bugs. Using strict equality (`===`) and explicit type conversions can help avoid these issues.
+                </p>
+            </section>
+
+            <!-- RegExp Content -->
+            <section id="regexp-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">RegExp</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Regular expressions (RegExp) are powerful patterns used to match character combinations in strings. They are used for pattern-matching, searching, and replacing text.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Creating a RegExp
+const pattern1 = /abc/; // Literal notation
+const pattern2 = new RegExp("abc"); // Constructor
+
+// Using RegExp with string methods
+let text = "The quick brown fox jumps over the lazy dog.";
+let containsFox = /fox/.test(text); // true
+let matched = text.match(/o/g); // ["o", "o", "o", "o"] (global match)
+
+console.log(containsFox);
+console.log(matched);
+
+// Replacing text
+let newText = text.replace(/lazy/, "active");
+console.log(newText); // "The quick brown fox jumps over the active dog."
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    RegExp offers a compact and flexible way to work with text patterns, essential for tasks like form validation and text parsing.
+                </p>
+            </section>
+
+            <!-- Iterators Content -->
+            <section id="iterators-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Iterators</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Iterators are objects that define a sequence and a return value upon its termination. They provide a standard way to access elements of a collection one by one. Many built-in JavaScript types like Arrays, Strings, Maps, and Sets are iterable.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const myArray = ['a', 'b', 'c'];
+const iterator = myArray[Symbol.iterator]();
+
+console.log(iterator.next()); // { value: 'a', done: false }
+console.log(iterator.next()); // { value: 'b', done: false }
+console.log(iterator.next()); // { value: 'c', done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+
+// Using for...of loop (uses iterators internally)
+for (const item of myArray) {
+    console.log(item);
+}
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Iterators are a foundational concept for understanding how `for...of` loops and other iteration protocols work in JavaScript.
+                </p>
+            </section>
+
+            <!-- Map Content -->
+            <section id="map-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Map</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A `Map` object holds key-value pairs and remembers the original insertion order of the keys. Any value (both objects and primitive values) may be used as either a key or a value.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const myMap = new Map();
+
+myMap.set('name', 'Alice');
+myMap.set(1, 'number one');
+myMap.set(true, 'boolean true');
+
+console.log(myMap.get('name')); // "Alice"
+console.log(myMap.has(1));      // true
+console.log(myMap.size);        // 3
+
+myMap.delete('name');
+console.log(myMap.has('name')); // false
+
+myMap.forEach((value, key) => {
+    console.log(`${key} = ${value}`);
+});
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    `Map` offers better performance for frequent additions and deletions of key-value pairs compared to plain objects, and allows non-string keys.
+                </p>
+            </section>
+
+            <!-- Sets Content -->
+            <section id="sets-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Sets</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A `Set` object is a collection of unique values. Each value can only occur once in a Set. You can add, delete, and check for the presence of elements.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const mySet = new Set();
+
+mySet.add(1);
+mySet.add("hello");
+mySet.add(1); // This will not be added as 1 already exists
+
+console.log(mySet.size);      // 2
+console.log(mySet.has("hello")); // true
+
+mySet.delete(1);
+console.log(mySet.has(1));    // false
+
+mySet.forEach(value => {
+    console.log(value);
+});
+// Output: "hello"
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Sets are useful for storing unique items and performing operations like checking for membership or removing duplicates from an array.
+                </p>
+            </section>
+
+            <!-- Spread Operator Content -->
+            <section id="spread-operator-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Spread Operator</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The spread syntax (`...`) allows an iterable (like an array or string) to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected. It can also be used to expand object properties in object literals.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Examples:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Copying arrays: `[...arr]`</li>
+                    <li>Concatenating arrays: `[...arr1, ...arr2]`</li>
+                    <li>Passing arguments to functions: `func(...args)`</li>
+                    <li>Copying objects: `{...obj}`</li>
+                    <li>Merging objects: `{...obj1, ...obj2}`</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const combinedArray = [...arr1, ...arr2]; // [1, 2, 3, 4]
+console.log(combinedArray);
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3, d: 4 };
+const combinedObject = { ...obj1, ...obj2 }; // { a: 1, b: 2, c: 3, d: 4 }
+console.log(combinedObject);
+
+function sum(x, y, z) { return x + y + z; }
+const numbers = [1, 2, 3];
+console.log(sum(...numbers)); // 6
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    The spread operator is a versatile and powerful feature for non-mutating operations on arrays and objects.
+                </p>
+            </section>
+
+            <!-- Rest Parameters Content -->
+            <section id="rest-parameters-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Rest Parameters</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The rest parameter syntax (`...`) allows a function to accept an indefinite number of arguments as an array. This is useful when you don't know how many arguments a function will receive.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function sumAll(...numbers) {
+    let total = 0;
+    for (const num of numbers) {
+        total += num;
+    }
+    return total;
+}
+
+console.log(sumAll(1, 2, 3));       // 6
+console.log(sumAll(10, 20, 30, 40)); // 100
+
+function greet(greeting, ...names) {
+    return `${greeting} ${names.join(' and ')}!`;
+}
+console.log(greet("Hello", "Alice", "Bob")); // "Hello Alice and Bob!"
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Rest parameters collect remaining arguments into an array, providing a clean way to handle variadic functions.
+                </p>
+            </section>
+
+            <!-- Closures Content -->
+            <section id="closures-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Closures</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In simpler terms, a closure gives you access to an outer function's scope from an inner function.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function outerFunction(outerVariable) {
+    return function innerFunction(innerVariable) {
+        console.log('Outer Variable:', outerVariable);
+        console.log('Inner Variable:', innerVariable);
+    };
+}
+
+const newFunction = outerFunction('I am outside!');
+newFunction('I am inside!');
+// Output:
+// Outer Variable: I am outside!
+// Inner Variable: I am inside!
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Closures are powerful for creating private variables, maintaining state, and implementing patterns like currying and memoization.
+                </p>
+            </section>
+
+            <!-- Memoization Content -->
+            <section id="memoization-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Memoization</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Memoization is an optimization technique used to speed up computer programs by caching the results of expensive function calls and returning the cached result when the same inputs occur again.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+function memoizedAddTo80() {
+    let cache = {};
+    return function(n) {
+        if (n in cache) {
+            return cache[n];
+        } else {
+            console.log('Long time operation...');
+            cache[n] = n + 80;
+            return cache[n];
+        }
+    }
+}
+
+const memoized = memoizedAddTo80();
+console.log(memoized(5)); // Long time operation... 85
+console.log(memoized(5)); // 85 (from cache)
+console.log(memoized(10)); // Long time operation... 90
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Memoization is particularly useful for recursive functions or functions that are called frequently with the same arguments.
+                </p>
+            </section>
+
+            <!-- Modules Content -->
+            <section id="modules-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Modules</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    JavaScript modules allow you to break down your code into separate, reusable files. They provide a way to encapsulate code, prevent global namespace pollution, and manage dependencies. ES6 introduced native module syntax (`import` and `export`).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">`math.js` (Module):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// math.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+                </code></pre>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">`app.js` (Using Module):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// app.js
+import { add, subtract } from './math.js';
+
+console.log(add(5, 3));     // 8
+console.log(subtract(10, 4)); // 6
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Modules are essential for building large-scale JavaScript applications, promoting maintainability and organization.
+                </p>
+            </section>
+
+            <!-- npm Content -->
+            <section id="npm-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">npm</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    npm (Node Package Manager) is the default package manager for Node.js and the world's largest software registry. It's used to install, manage, and share packages (libraries, frameworks, tools) for JavaScript projects.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common npm Commands:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`npm init`: Initializes a new Node.js project and creates a `package.json` file.</li>
+                    <li>`npm install [package-name]`: Installs a package as a dependency.</li>
+                    <li>`npm install -g [package-name]`: Installs a package globally.</li>
+                    <li>`npm uninstall [package-name]`: Uninstalls a package.</li>
+                    <li>`npm start`: Runs the script defined in `package.json` under the "start" key.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+# Initialize a new project
+npm init -y
+
+# Install a package (e.g., lodash)
+npm install lodash
+
+# Run a script defined in package.json
+# (e.g., if package.json has "scripts": { "start": "node index.js" })
+npm start
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    npm is an indispensable tool for modern JavaScript development, providing access to a vast ecosystem of open-source libraries and tools.
+                </p>
+            </section>
+
+            <!-- Nullish Coalescing Content -->
+            <section id="nullish-coalescing-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Nullish Coalescing</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The nullish coalescing operator (`??`) is a logical operator that returns its right-hand side operand when its left-hand side operand is `null` or `undefined`, and otherwise returns its left-hand side operand. It provides a safer way to set default values than the `||` (OR) operator.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let userSetting = null;
+let defaultSetting = "default value";
+
+// Using || (OR) operator - treats 0, '', false as falsy
+let finalSettingOR = userSetting || defaultSetting; // "default value"
+let zeroValue = 0;
+let resultOR = zeroValue || defaultSetting; // "default value" (undesired if 0 is valid)
+
+// Using ?? (Nullish Coalescing) operator - only treats null/undefined as nullish
+let finalSettingNullish = userSetting ?? defaultSetting; // "default value"
+let resultNullish = zeroValue ?? defaultSetting; // 0 (correctly keeps 0)
+
+console.log(finalSettingOR);
+console.log(resultOR);
+console.log(finalSettingNullish);
+console.log(resultNullish);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    The nullish coalescing operator is useful for providing default values only when a variable is strictly `null` or `undefined`, avoiding issues with other falsy values.
+                </p>
+            </section>
+
+            <!-- Optional Chaining Content -->
+            <section id="optional-chaining-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Optional Chaining</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The optional chaining operator (`?.`) allows you to safely access properties of an object that might be `null` or `undefined` without causing an error. If a property in the chain is `null` or `undefined`, the expression short-circuits and returns `undefined`.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const user = {
+    name: "Charlie",
+    address: {
+        street: "456 Oak Ave",
+        city: "Someville"
+    },
+    getDetails() {
+        return `${this.name} from ${this.address.city}`;
+    }
+};
+
+const guest = {}; // No address property
+
+console.log(user.address.city);          // "Someville"
+console.log(guest.address?.city);        // undefined (no error)
+console.log(user.getDetails?.());        // "Charlie from Someville"
+console.log(guest.getDetails?.());       // undefined (no error)
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Optional chaining significantly simplifies code when dealing with potentially missing properties in nested objects, preventing `TypeError` exceptions.
+                </p>
+            </section>
+
+            <!-- Polyfill Content -->
+            <section id="polyfill-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Polyfill</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    A polyfill is a piece of code (or a plugin) that provides the functionality of a modern web feature to older browsers that do not natively support it. It allows developers to write modern JavaScript code and ensure it works across a wider range of browsers.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Simple polyfill for String.prototype.startsWith (if not natively supported)
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position) {
+        position = position || 0;
+        return this.substr(position, searchString.length) === searchString;
+    };
+}
+
+console.log("Hello World".startsWith("Hello")); // true (works even in older browsers with polyfill)
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Polyfills are essential for maintaining cross-browser compatibility, especially when using newer JavaScript features that might not be universally supported.
+                </p>
+            </section>
+
+            <!-- Bitwise Operators Content -->
+            <section id="bitwise-operators-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Bitwise Operators</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Bitwise operators treat their operands as a set of 32 bits (zeros and ones) and perform operations on them at the bit level. They are less commonly used in general web development but are important for low-level operations, graphics, or specific algorithms.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common Bitwise Operators:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`&` (AND): Sets each bit to 1 if both bits are 1.</li>
+                    <li>`|` (OR): Sets each bit to 1 if one of the bits is 1.</li>
+                    <li>`^` (XOR): Sets each bit to 1 if only one of the bits is 1.</li>
+                    <li>`~` (NOT): Inverts all the bits.</li>
+                    <li>`<<` (Left Shift): Shifts bits to the left.</li>
+                    <li>`>>` (Right Shift): Shifts bits to the right (signed).</li>
+                    <li>`>>>` (Zero-fill Right Shift): Shifts bits to the right (unsigned).</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let a = 5;  // 0101 in binary
+let b = 3;  // 0011 in binary
+
+console.log(a & b); // 1 (0001 in binary)
+console.log(a | b); // 7 (0111 in binary)
+console.log(a ^ b); // 6 (0110 in binary)
+console.log(~a);    // -6 (inverts bits)
+console.log(a << 1); // 10 (1010 in binary)
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    While powerful, bitwise operations can be complex to understand and debug.
+                </p>
+            </section>
+
+            <!-- Enums Content -->
+            <section id="enums-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Enums</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    JavaScript does not have a native `enum` (enumeration) type like some other languages (e.g., TypeScript, C#). However, you can simulate enums using objects or `const` declarations to define a set of named constants.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Simulating Enums with Objects:</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+const COLORS = {
+    RED: 'red',
+    GREEN: 'green',
+    BLUE: 'blue'
+};
+
+function selectColor(color) {
+    if (color === COLORS.RED) {
+        console.log("Selected Red");
+    } else if (color === COLORS.GREEN) {
+        console.log("Selected Green");
+    } else {
+        console.log("Unknown Color");
+    }
+}
+
+selectColor(COLORS.RED);   // "Selected Red"
+selectColor("purple"); // "Unknown Color"
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Using objects for enums improves code readability and reduces the chance of typos when working with a predefined set of values.
+                </p>
+            </section>
+
+            <!-- Requests Content -->
+            <section id="requests-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Requests</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    In web development, "requests" typically refer to HTTP requests made from the client (browser) to a server to fetch or send data. The modern way to make these requests in JavaScript is using the Fetch API or `XMLHttpRequest` (older).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Fetch API (GET Request):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+    .then(response => response.json())
+    .then(data => console.log('Fetched data:', data))
+    .catch(error => console.error('Error fetching:', error));
+                </code></pre>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Fetch API (POST Request):</h3>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        title: 'foo',
+        body: 'bar',
+        userId: 1,
+    }),
+})
+.then(response => response.json())
+.then(data => console.log('Posted data:', data))
+.catch(error => console.error('Error posting:', error));
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Understanding how to make HTTP requests is fundamental for building dynamic web applications that interact with backend services.
+                </p>
+            </section>
+
+            <!-- Sort Content -->
+            <section id="sort-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Sort</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `sort()` method sorts the elements of an array in place and returns the sorted array. The default sort order is ascending, built upon converting the elements into strings, then comparing their sequences of UTF-16 code units values. For numbers, a custom comparison function is often needed.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// Default string sort
+let fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+console.log(fruits); // ["Apple", "Banana", "Mango", "Orange"]
+
+// Numeric sort (ascending)
+let numbers = [40, 100, 1, 5, 25, 10];
+numbers.sort(function(a, b) { return a - b; });
+console.log(numbers); // [1, 5, 10, 25, 40, 100]
+
+// Numeric sort (descending)
+numbers.sort(function(a, b) { return b - a; });
+console.log(numbers); // [100, 40, 25, 10, 5, 1]
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Custom comparison functions are essential for sorting arrays of numbers or objects based on specific criteria.
+                </p>
+            </section>
+
+            <!-- Storage Content -->
+            <section id="storage-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Storage</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    Web storage (localStorage and sessionStorage) allows web applications to store data locally within the user's browser. Unlike cookies, Web Storage is not sent with every HTTP request, and it has a much larger storage capacity (typically 5MB or more).
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">`localStorage`:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Stores data with no expiration date. Data persists even after the browser is closed.</li>
+                </ul>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">`sessionStorage`:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>Stores data for only one session. Data is cleared when the browser tab is closed.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+// localStorage example
+localStorage.setItem('username', 'Alice'); // Store data
+let user = localStorage.getItem('username'); // Retrieve data: "Alice"
+console.log(user);
+// localStorage.removeItem('username'); // Remove data
+// localStorage.clear(); // Clear all localStorage for the origin
+
+// sessionStorage example
+sessionStorage.setItem('tempData', 'This is temporary');
+let temp = sessionStorage.getItem('tempData');
+console.log(temp);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Both `localStorage` and `sessionStorage` store data as key-value pairs, where both keys and values must be strings. Use `JSON.stringify()` and `JSON.parse()` for storing/retrieving objects.
+                </p>
+            </section>
+
+            <!-- Switch Content -->
+            <section id="switch-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Switch</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `switch` statement is used to perform different actions based on different conditions. It evaluates an expression and executes the code block associated with the matching `case` value.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+let day = new Date().getDay(); // Get current day (0 for Sunday, 1 for Monday, etc.)
+let dayName;
+
+switch (day) {
+    case 0:
+        dayName = "Sunday";
+        break;
+    case 1:
+        dayName = "Monday";
+        break;
+    case 2:
+        dayName = "Tuesday";
+        break;
+    case 3:
+        dayName = "Wednesday";
+        break;
+    case 4:
+        dayName = "Thursday";
+        break;
+    case 5:
+        dayName = "Friday";
+        break;
+    case 6:
+        dayName = "Saturday";
+        break;
+    default:
+        dayName = "Unknown";
+}
+console.log("Today is " + dayName);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    Always use the `break` keyword to exit the `switch` block once a match is found; otherwise, the code will "fall through" to subsequent `case` blocks. The `default` keyword specifies the code to run if there is no case match.
+                </p>
+            </section>
+
+            <!-- Window Content -->
+            <section id="window-content" class="max-w-xl w-full mx-auto" style="display: none;">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">window</h2>
+                <p class="text-gray-600 text-base leading-relaxed mb-4 text-left">
+                    The `window` object represents the browser's window and is the global object in client-side JavaScript. All global JavaScript objects, functions, and variables automatically become members of the `window` object. It provides access to browser features and the DOM.
+                </p>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 text-left">Common `window` properties/methods:</h3>
+                <ul class="list-disc list-inside text-gray-600 text-base leading-relaxed mb-4 text-left pl-4">
+                    <li>`window.document`: Refers to the `document` object (the DOM).</li>
+                    <li>`window.location`: Provides information about the current URL.</li>
+                    <li>`window.history`: Manages browser history.</li>
+                    <li>`window.alert()`: Displays an alert box.</li>
+                    <li>`window.setTimeout()`: Executes a function after a specified delay.</li>
+                    <li>`window.innerWidth`, `window.innerHeight`: Get viewport dimensions.</li>
+                </ul>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto mb-4"><code>
+console.log("Current URL:", window.location.href);
+console.log("Viewport width:", window.innerWidth);
+
+// window.alert("This is a window alert!"); // (Avoid using in production for better UX)
+
+setTimeout(() => {
+    console.log("This message appears after 2 seconds.");
+}, 2000);
+                </code></pre>
+                <p class="text-gray-600 text-base leading-relaxed text-left">
+                    The `window` object is implicitly available, so you often omit `window.` when calling its properties or methods (e.g., `alert()` instead of `window.alert()`).
+                </p>
+            </section>
+
+            <!-- Next and Previous Links -->
+            <div class="flex justify-between items-center mt-12 pt-4 border-t border-gray-200 w-full max-w-xl mx-auto">
+                <a href="#" id="prev-link" class="text-black hover:text-blue-800 font-medium flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Previous
+                </a>
+                <a href="#" id="next-link" class="text-black hover:text-blue-800 font-medium flex items-center">
+                    Next
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white p-4 text-center mt-auto">
+        <p>&copy; 2025 JavaScript Docs. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mainContentSections = document.querySelectorAll('main section');
+        const menuLinks = document.querySelectorAll('#mobile-menu a, .sidebar a');
+        const mainHeading = document.querySelector('main h2'); // Get the main heading element
+
+        // Function to open the mobile menu
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.classList.add('translate-x-0');
+            mobileMenuOverlay.classList.remove('hidden');
+            hamburger.classList.add('open');
+        }
+
+        // Function to close the mobile menu
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenuOverlay.classList.add('hidden');
+            hamburger.classList.remove('open');
+        }
+
+        // Function to show a specific content section and update heading
+        function showContent(targetId, linkText) {
+            mainContentSections.forEach(section => {
+                section.style.display = 'none'; // Hide all sections
+            });
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block'; // Show the target section
+                // Update the main heading to match the clicked link's text
+                mainHeading.textContent = linkText;
+
+                // Update currentTopicIndex for navigation
+                currentTopicIndex = allTopics.findIndex(topic => topic.id === targetId);
+                updateNavigationButtons();
+            }
+        }
+
+        // Initialize: Show JavaScript Concepts content by default
+        document.addEventListener('DOMContentLoaded', () => {
+            showContent('javascript-concepts-content', 'JavaScript Concepts');
+        });
+
+
+        // Toggle mobile menu on hamburger click
+        hamburger.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                openMobileMenu();
+            } else {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when clicking outside (on the overlay)
+        mobileMenuOverlay.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+
+        // Add click listeners to all menu links
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior (page jump)
+                const targetId = link.getAttribute('href').substring(1); // Get ID from href (remove '#')
+                const linkText = link.textContent; // Get the text content of the clicked link
+                showContent(targetId, linkText);
+                closeMobileMenu(); // Close mobile menu after selection
+            });
+        });
+
+        // Close mobile menu when clicking anywhere on the document outside the menu
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = mobileMenu.contains(event.target) || hamburger.contains(event.target);
+            // Only close if the menu is open and the click is outside
+            if (!isClickInsideMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Ensure the mobile menu is closed if the window is resized to desktop view
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) { // md breakpoint for Tailwind CSS
+                closeMobileMenu();
+            }
+        });
+
+        // Basic functionality for Next/Previous links (can be expanded)
+        const allTopics = Array.from(menuLinks).map(link => ({
+            id: link.getAttribute('href').substring(1),
+            text: link.textContent
+        }));
+
+        let currentTopicIndex = 0; // Start with 'JavaScript Concepts'
+
+        function updateNavigationButtons() {
+            const prevLink = document.getElementById('prev-link');
+            const nextLink = document.getElementById('next-link');
+
+            if (currentTopicIndex <= 0) { // Handle first item
+                prevLink.style.visibility = 'hidden';
+            } else {
+                prevLink.style.visibility = 'visible';
+                prevLink.href = '#' + allTopics[currentTopicIndex - 1].id;
+            }
+
+            if (currentTopicIndex >= allTopics.length - 1) { // Handle last item
+                nextLink.style.visibility = 'hidden';
+            } else {
+                nextLink.style.visibility = 'visible';
+                nextLink.href = '#' + allTopics[currentTopicIndex + 1].id;
+            }
+        }
+
+        document.getElementById('prev-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentTopicIndex > 0) {
+                currentTopicIndex--;
+                showContent(allTopics[currentTopicIndex].id, allTopics[currentTopicIndex].text);
+                updateNavigationButtons();
+            }
+        });
+
+        document.getElementById('next-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentTopicIndex < allTopics.length - 1) {
+                currentTopicIndex++;
+                showContent(allTopics[currentTopicIndex].id, allTopics[currentTopicIndex].text);
+                updateNavigationButtons();
+            }
+        });
+
+        // Update navigation buttons on initial load
+        updateNavigationButtons();
+
+    </script>
 </body>
 </html>
