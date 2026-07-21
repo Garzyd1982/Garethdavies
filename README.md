@@ -1,4 +1,4 @@
-### Hi there 👋, I'm Gareth
+### Hi 👋, I'm Gareth
     I am a software engineering student based in the Rhondda, building hardware integrations and software tools. 
 
     #### 🚀 Current Projects:
